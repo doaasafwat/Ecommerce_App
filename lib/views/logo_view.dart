@@ -8,14 +8,11 @@ class LogoView extends StatefulWidget {
   State<LogoView> createState() => _LogoViewState();
 }
 
- 
 class _LogoViewState extends State<LogoView> {
-
- void initState() {
+  void initState() {
     super.initState();
 
     Future.delayed(const Duration(seconds: 5), () {
-
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

@@ -1,12 +1,15 @@
 
-import 'package:ecommerce_app/helper/api.dart';
-
+import 'package:dio/dio.dart';
 
 class GetAllCategoriesService {
+  final Dio dio = Dio(); 
+
   Future<List<dynamic>> GetAllCategories() async {
-
-
-    List<dynamic> data =  await Api().get(url: 'https://fakestoreapi.com/products/categories');
-    return data;
+    try {
+      Response response = await dio.get('https://fakestoreapi.com/products/categories');
+      return response.data;
+    } catch (e) {
+      throw Exception("Failed to load categories: $e");
+    }
   }
 }

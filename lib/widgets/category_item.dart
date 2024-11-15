@@ -17,7 +17,9 @@ class CategoryItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return  CategoryView(categoryName:categoryList[0] ,);
+            return CategoryView(
+              categoryName: categoryList[0],
+            );
           }));
         },
         child: Container(

@@ -1,19 +1,22 @@
 
-
-import 'package:ecommerce_app/helper/api.dart';
+import 'package:dio/dio.dart';
 import 'package:ecommerce_app/models/product_model.dart';
 
 class AllProductService {
-  Future<List<ProductModel>> getAllProduct() async {
-    List<dynamic> data =
-        await Api().get(url: 'https://fakestoreapi.com/products');
+  final Dio dio = Dio(); 
 
-    List<ProductModel> productList = [];
-    for (int i = 0; i < data.length; i++) {
-      productList.add(
-        ProductModel.fromJson(data[i]),
-      );
+  Future<List<ProductModel>> getAllProduct() async {
+    try {
+      Response response = await dio.get('https://fakestoreapi.com/products');
+      List<dynamic> data = response.data;
+
+      List<ProductModel> productList = [];
+      for (int i = 0; i < data.length; i++) {
+        productList.add(ProductModel.fromJson(data[i]));
+      }
+      return productList;
+    } catch (e) {
+      throw Exception("Failed to load products: $e");
     }
-    return productList;
   }
 }

@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _pageIndex == 0 
+      appBar: _pageIndex == 0
           ? AppBar(
               leading: BackButton(
                 onPressed: _goBack,

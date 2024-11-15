@@ -16,7 +16,6 @@ class _PaymentDetailsBodyState extends State<PaymentDetailsBody> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   Widget build(BuildContext context) {
     return CustomScrollView(slivers: [
-
       SliverToBoxAdapter(
         child: CustomCreditCard(
           formKey: formKey,
@@ -34,7 +33,7 @@ class _PaymentDetailsBodyState extends State<PaymentDetailsBody> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                      Navigator.push(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
@@ -43,7 +42,6 @@ class _PaymentDetailsBodyState extends State<PaymentDetailsBody> {
                       ),
                     );
                   } else {
-                  
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});
                   }

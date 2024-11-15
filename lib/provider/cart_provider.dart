@@ -19,10 +19,12 @@ class CartProvider with ChangeNotifier {
     _cart.remove(product);
     notifyListeners();
   }
+
   bool isCart(ProductModel product) {
     return _cart.contains(product);
   }
-    double get totalPrice {
+
+  double get totalPrice {
     return _cart.fold(0, (sum, item) => sum + item.price);
   }
 }

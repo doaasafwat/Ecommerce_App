@@ -5,7 +5,7 @@ class CustomSearchTextField extends StatelessWidget {
 
   final textController = TextEditingController();
   final textKey = GlobalKey<FormState>();
- final Function(String) onSearch; 
+  final Function(String) onSearch;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -28,7 +28,7 @@ class CustomSearchTextField extends StatelessWidget {
             suffixIcon: IconButton(
               onPressed: () {
                 if (textKey.currentState!.validate()) {
-                  onSearch(textController.text); 
+                  onSearch(textController.text);
                 }
               },
               icon: const Icon(

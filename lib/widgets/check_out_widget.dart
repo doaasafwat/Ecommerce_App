@@ -1,8 +1,11 @@
 import 'package:ecommerce_app/const.dart';
+import 'package:ecommerce_app/payment/cubit/payment_cubit.dart';
+import 'package:ecommerce_app/payment/repo/checkout_repo_imp.dart';
 import 'package:ecommerce_app/provider/cart_provider.dart';
 import 'package:ecommerce_app/widgets/custom_button.dart';
 import 'package:ecommerce_app/widgets/payment_methods_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class CheckOutWidget extends StatelessWidget {
@@ -64,11 +67,13 @@ class CheckOutWidget extends StatelessWidget {
                 child: CustomButton(
                   text: 'Complete Payment',
                   onPressed: () {
-                
                     showModalBottomSheet(
                         context: context,
                         builder: (context) {
-                          return const PaymentMethodsBottomSheet();
+                          return BlocProvider(
+                            create: (context) => PaymentCubit(CheckoutRepoImp()),
+                            child: const PaymentMethodsBottomSheet(),
+                          );
                         });
                   },
                 ),

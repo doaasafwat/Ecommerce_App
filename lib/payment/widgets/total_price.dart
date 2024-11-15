@@ -11,21 +11,21 @@ class TotalPrice extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-           style:const  TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const Spacer(),
         Text(
           value,
           textAlign: TextAlign.center,
           style: const TextStyle(
-                  color:  Colors.black,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         )
       ],
     );

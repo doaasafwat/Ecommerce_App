@@ -10,7 +10,7 @@ class ThankYouView extends StatelessWidget {
       appBar: AppBar(
         leading: const BackButton(),
       ),
-      body:const  ThankYouViewBody(),
+      body: const ThankYouViewBody(),
     );
   }
 }

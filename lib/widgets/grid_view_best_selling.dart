@@ -3,7 +3,6 @@ import 'package:ecommerce_app/services/get_all_products_service.dart';
 import 'package:ecommerce_app/widgets/best_selling_item.dart';
 import 'package:flutter/material.dart';
 
-
 class GridViewBestSelling extends StatelessWidget {
   const GridViewBestSelling({super.key});
 

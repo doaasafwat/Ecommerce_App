@@ -8,13 +8,13 @@ class PaymentItemInfo extends StatelessWidget {
     return Row(
       children: [
         Text(
-         text,
+          text,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
         ),
-       const Spacer(),
+        const Spacer(),
         Text(
           date,
-          style:const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ],
     );

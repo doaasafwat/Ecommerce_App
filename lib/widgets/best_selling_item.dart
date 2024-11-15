@@ -81,9 +81,13 @@ class BestSellingItem extends StatelessWidget {
                       ),
                     ),
                     trailing: IconButton(
-                     icon: Icon(
-                        CartProvider.isCart(products) ? Icons.shopping_cart : Icons.shopping_cart_outlined,
-                        color:  CartProvider.isCart(products) ?primaryColor : Colors.grey,
+                      icon: Icon(
+                        CartProvider.isCart(products)
+                            ? Icons.shopping_cart
+                            : Icons.shopping_cart_outlined,
+                        color: CartProvider.isCart(products)
+                            ? primaryColor
+                            : Colors.grey,
                       ),
                       onPressed: () {
                         CartProvider.toggleCart(products);

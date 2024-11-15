@@ -27,9 +27,11 @@ class ProductView extends StatelessWidget {
           actions: [
             IconButton(
               iconSize: 30,
-              icon: Icon( FavoritesProvider.isFavorite(product)
-                            ? CupertinoIcons.heart_fill
-                            : CupertinoIcons.heart,),
+              icon: Icon(
+                FavoritesProvider.isFavorite(product)
+                    ? CupertinoIcons.heart_fill
+                    : CupertinoIcons.heart,
+              ),
               color: Colors.red,
               onPressed: () {
                 FavoritesProvider.toggleFavorite(product);

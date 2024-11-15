@@ -6,10 +6,12 @@ class ProductModel {
   final String image;
   final String category;
   final RatingModel? rating;
-   @override
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ProductModel && runtimeType == other.runtimeType && id == other.id;
+      other is ProductModel &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
 
   @override
   int get hashCode => id.hashCode;

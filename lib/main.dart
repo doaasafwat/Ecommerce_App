@@ -1,11 +1,14 @@
+import 'package:ecommerce_app/payment/services/api_keys.dart';
 import 'package:ecommerce_app/provider/cart_provider.dart';
 import 'package:ecommerce_app/provider/favorites_provider.dart';
 import 'package:ecommerce_app/views/logo_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-   runApp(
+  Stripe.publishableKey = ApiKeys.Publishablekey;
+  runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FavoritesProvider()),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class CategoryView extends StatefulWidget {
   final String categoryName;
-  const CategoryView({super.key,required this.categoryName});
+  const CategoryView({super.key, required this.categoryName});
 
   @override
   State<CategoryView> createState() => _CategoryViewState();
@@ -26,9 +26,9 @@ class _CategoryViewState extends State<CategoryView> {
           leading: BackButton(
             onPressed: _goBack,
           ),
-          title:  Text(
-          widget.categoryName  ,
-            style:const  TextStyle(
+          title: Text(
+            widget.categoryName,
+            style: const TextStyle(
               color: primaryColor,
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -38,8 +38,8 @@ class _CategoryViewState extends State<CategoryView> {
           elevation: 0,
         ),
         body: FutureBuilder<List<ProductModel>>(
-            future:
-                GetCategoryService().GetCategory(categoryName:widget.categoryName ),
+            future: GetCategoryService()
+                .GetCategory(categoryName: widget.categoryName),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<ProductModel> productsList = snapshot.data!;
@@ -52,7 +52,7 @@ class _CategoryViewState extends State<CategoryView> {
                   itemBuilder: (context, index) => BestSellingItem(
                     products: productsList[index],
                   ),
-                ); 
+                );
               } else {
                 return const Center(child: CircularProgressIndicator());
               }

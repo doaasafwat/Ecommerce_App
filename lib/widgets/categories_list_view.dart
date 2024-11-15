@@ -7,22 +7,25 @@ class CategoriesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      List<String> ImageList = [
-    'assets/elec.jpg',
-    'assets/jew.jpg',
-    'assets/men.jpg',
-    'assets/women.jpg',
-  ];
+    List<String> ImageList = [
+      'assets/elec.jpg',
+      'assets/jew.jpg',
+      'assets/men.jpg',
+      'assets/women.jpg',
+    ];
     return FutureBuilder(
         future: GetAllCategoriesService().GetAllCategories(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<dynamic> categories=snapshot.data!;
+            List<dynamic> categories = snapshot.data!;
             return ListView.builder(
                 itemCount: categories.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return  CategoryItem(categoryList: [categories[index]], ImageList: ImageList[index],);
+                  return CategoryItem(
+                    categoryList: [categories[index]],
+                    ImageList: ImageList[index],
+                  );
                 });
           } else {
             return const Center(child: CircularProgressIndicator());

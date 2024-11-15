@@ -20,31 +20,31 @@ class CartView extends StatelessWidget {
             ),
           );
         }
-        return Column(children: [
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xffEDECF2),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+        return Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xffEDECF2),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
                 ),
+                child: ListView.builder(
+                    itemCount: CartProvider.cartList.length,
+                    itemBuilder: (context, index) {
+                      final product = CartProvider.cartList[index];
+                      return ItemCart(
+                        product: product,
+                      );
+                    }),
               ),
-              child: ListView.builder(
-                  itemCount: CartProvider.cartList.length,
-                  itemBuilder: (context, index) {
-                    final product = CartProvider.cartList[index];
-                    return ItemCart(
-                      product: product,
-                    );
-                  }),
             ),
-          ),
-          const CheckOutWidget(),
-        ],);
+            const CheckOutWidget(),
+          ],
+        );
       }),
     );
   }
 }
-
-

@@ -17,7 +17,6 @@ class ProductViewBody extends StatelessWidget {
           height: 200,
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
-          
             color: Colors.white,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(50),
@@ -45,11 +44,13 @@ class ProductViewBody extends StatelessWidget {
             Row(
               children: List.generate(
                 5,
-                (index) =>  Padding(
-                  padding:const  EdgeInsets.only(left: 8),
+                (index) => Padding(
+                  padding: const EdgeInsets.only(left: 8),
                   child: Icon(
                     Icons.favorite,
-                   color: index < product.rating!.rate ? primaryColor : Colors.grey,
+                    color: index < product.rating!.rate
+                        ? primaryColor
+                        : Colors.grey,
                     size: 20,
                   ),
                 ),
@@ -64,13 +65,13 @@ class ProductViewBody extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Padding(
-          padding:const  EdgeInsets.only(
+          padding: const EdgeInsets.only(
             left: 8,
           ),
           child: Text(
             maxLines: 3,
             product.description,
-            style:const TextStyle(color: primaryColor, fontSize: 14),
+            style: const TextStyle(color: primaryColor, fontSize: 14),
           ),
         ),
         const SizedBox(height: 8),
