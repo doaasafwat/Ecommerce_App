@@ -41,6 +41,7 @@ class CustomButtonBlocCunsumer extends StatelessWidget {
  PaymentIntentInputModel paymentIntentInputModel = PaymentIntentInputModel(
 
       amount: '${(cartProvider.totalPrice * 100).toInt()}',
+      customerId: 'cus_RF8CGRQ06sAxHh',
       currency: 'USD',
     );
     BlocProvider.of<PaymentCubit>(context)
