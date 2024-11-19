@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/auth/view/views/login_view.dart';
 import 'package:ecommerce_app/payment/services/api_keys.dart';
 import 'package:ecommerce_app/provider/cart_provider.dart';
 import 'package:ecommerce_app/provider/favorites_provider.dart';
@@ -24,9 +25,9 @@ class EcommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LogoView(),
+      home: LoginPage(),
     );
   }
 }

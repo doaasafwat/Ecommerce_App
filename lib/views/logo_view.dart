@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/auth/view/views/login_view.dart';
 import 'package:ecommerce_app/views/main_page.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,11 @@ class _LogoViewState extends State<LogoView> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const MainPage(),
+          builder: (context) =>  LoginPage(),
         ),
       );
     });

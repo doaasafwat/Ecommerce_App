@@ -1,18 +1,24 @@
+import 'dart:developer';
 import 'package:ecommerce_app/payment/cubit/payment_cubit.dart';
 import 'package:ecommerce_app/payment/cubit/payment_state.dart';
-import 'package:ecommerce_app/payment/models/payment_intent_input_model.dart';
+import 'package:ecommerce_app/payment/models/amount_model/amount_model.dart';
+import 'package:ecommerce_app/payment/models/amount_model/details.dart';
+import 'package:ecommerce_app/payment/models/item_list_model/item.dart';
+import 'package:ecommerce_app/payment/services/api_keys.dart';
 import 'package:ecommerce_app/payment/views/thank_you_view.dart';
 import 'package:ecommerce_app/provider/cart_provider.dart';
 import 'package:ecommerce_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:provider/provider.dart';
 
 class CustomButtonBlocCunsumer extends StatelessWidget {
   const CustomButtonBlocCunsumer({
     super.key,
+    required this.isPaypal,
   });
-
+  final bool isPaypal;
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -35,19 +41,67 @@ class CustomButtonBlocCunsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return CustomButton(
-          isLoading: state is PaymentLoading ? true : false,
-          text: 'Continue',
-          onPressed: () {
- PaymentIntentInputModel paymentIntentInputModel = PaymentIntentInputModel(
+            isLoading: state is PaymentLoading ? true : false,
+            text: 'Continue',
 
-      amount: '${(cartProvider.totalPrice * 100).toInt()}',
-      customerId: 'cus_RF8CGRQ06sAxHh',
-      currency: 'USD',
-    );
-    BlocProvider.of<PaymentCubit>(context)
-        .makepayment(paymentIntentInputModel: paymentIntentInputModel);
-          },
-        );
+            onPressed: () {
+              if (isPaypal) {
+                List<OrderItemModel> items = [
+                  OrderItemModel(
+                    currency: 'USD',
+                    name: 'Apple',
+                    price: '${(cartProvider.totalPrice).toInt()}',
+                    quantity: 1,
+                  ),
+                ];
+
+                double subtotal = items.fold(0.0, (sum, item) {
+                  return sum + (double.parse(item.price!) * item.quantity!);
+                });
+
+                var amount = AmountModel(
+                  currency: 'USD',
+                  details: Details(
+                    shipping: '0',
+                    shippingDiscount: 0,
+                    subtotal: subtotal.toStringAsFixed(2),
+                  ),
+                  total: (subtotal).toStringAsFixed(2),
+                );
+
+                var transactions = [
+                  {
+                    "amount": amount.toJson(),
+                    "description": "The payment transaction description.",
+                    "item_list": {
+                      "items": items.map((item) => item.toJson()).toList(),
+                    },
+                  }
+                ];
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => PaypalCheckoutView(
+                    sandboxMode: true,
+                    clientId: ApiKeys.clientId,
+                    secretKey: ApiKeys.paypalSecretKey,
+                    transactions: transactions,
+                    note: "Contact us for any questions on your order.",
+                    onSuccess: (Map params) async {
+                      log("onSuccess: $params");
+                      Navigator.pop(context);
+                    },
+                    onError: (error) {
+                      log("onError: $error");
+                      Navigator.pop(context);
+                    },
+                    onCancel: () {
+                      print('cancelled:');
+                      Navigator.pop(context);
+                    },
+                  ),
+                ));
+              }
+            });
       },
     );
   }

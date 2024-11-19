@@ -43,6 +43,8 @@ dependencies:
   flutter_stripe: ^11.2.0
   dartz: ^0.10.1
   flutter_bloc: ^8.1.6
+  flutter_paypal_payment: ^1.0.7
+  firebase_core: ^3.8.0
 
 dev_dependencies:
   flutter_test:
