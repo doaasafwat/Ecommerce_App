@@ -4,6 +4,7 @@ import 'package:ecommerce_app/payment/cubit/payment_state.dart';
 import 'package:ecommerce_app/payment/models/amount_model/amount_model.dart';
 import 'package:ecommerce_app/payment/models/amount_model/details.dart';
 import 'package:ecommerce_app/payment/models/item_list_model/item.dart';
+import 'package:ecommerce_app/payment/models/payment_intent_input_model.dart';
 import 'package:ecommerce_app/payment/services/api_keys.dart';
 import 'package:ecommerce_app/payment/views/thank_you_view.dart';
 import 'package:ecommerce_app/provider/cart_provider.dart';
@@ -43,7 +44,6 @@ class CustomButtonBlocCunsumer extends StatelessWidget {
         return CustomButton(
             isLoading: state is PaymentLoading ? true : false,
             text: 'Continue',
-
             onPressed: () {
               if (isPaypal) {
                 List<OrderItemModel> items = [
@@ -100,6 +100,15 @@ class CustomButtonBlocCunsumer extends StatelessWidget {
                     },
                   ),
                 ));
+              } else {
+                PaymentIntentInputModel paymentIntentInputModel =
+                    PaymentIntentInputModel(
+                  amount: '${(cartProvider.totalPrice * 100).toInt()}',
+                  customerId: ApiKeys.customerId,
+                  currency: 'USD',
+                );
+                BlocProvider.of<PaymentCubit>(context).makepayment(
+                    paymentIntentInputModel: paymentIntentInputModel);
               }
             });
       },

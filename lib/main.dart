@@ -1,13 +1,21 @@
 import 'package:ecommerce_app/auth/view/views/login_view.dart';
+import 'package:ecommerce_app/firebase_options.dart';
 import 'package:ecommerce_app/payment/services/api_keys.dart';
 import 'package:ecommerce_app/provider/cart_provider.dart';
 import 'package:ecommerce_app/provider/favorites_provider.dart';
 import 'package:ecommerce_app/views/logo_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
+WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+
   Stripe.publishableKey = ApiKeys.Publishablekey;
   runApp(
     MultiProvider(
@@ -25,9 +33,9 @@ class EcommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return const  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: LogoView(),
     );
   }
 }

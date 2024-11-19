@@ -5,12 +5,18 @@ class CustomFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.controller,
+    required this.isPassword,
     this.isObsecure = false,
     this.isReadOnly = false,
     this.onTap,
+    this.isPasswordVisible = false,
+    this.onTogglePasswordVisibility,
   });
 
   final bool isReadOnly;
+  final bool isPassword;
+  final bool isPasswordVisible;
+  final VoidCallback? onTogglePasswordVisibility;
   final String hintText;
   final TextEditingController? controller;
   final bool isObsecure;
@@ -21,6 +27,7 @@ class CustomFormField extends StatelessWidget {
     return TextFormField(
       onTap: onTap,
       controller: controller,
+      obscureText: isPassword && !isPasswordVisible,
       readOnly: isReadOnly,
       decoration: InputDecoration(
         hintText: hintText,
@@ -39,15 +46,25 @@ class CustomFormField extends StatelessWidget {
           side: const BorderSide(color: Colors.red, width: 1),
           redius: 8,
         ),
+        suffixIcon: isPassword
+            ? IconButton(
+                onPressed: onTogglePasswordVisibility,
+                icon: Icon(
+                  isPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off_outlined,
+                  color: Colors.grey,
+                ),
+              )
+            : null,
       ),
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
       validator: (val) {
         if (val!.trim().isEmpty) {
           return '$hintText is missing';
         }
         return null;
       },
-      obscureText: isObsecure,
     );
   }
 

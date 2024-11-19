@@ -1,15 +1,65 @@
 import 'package:ecommerce_app/auth/view/views/login_view.dart';
 import 'package:ecommerce_app/auth/view/widgets/custom_form_field.dart';
 import 'package:ecommerce_app/const.dart';
-import 'package:ecommerce_app/views/main_page.dart';
 import 'package:ecommerce_app/widgets/custom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SignupPage extends StatelessWidget {
-  final nameContorller = TextEditingController();
-  final emailContorller = TextEditingController();
-  final passwordContorller = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+class SignupPage extends StatefulWidget {
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
+  String statusMessage = '';
+
+  Future<void> registerUser() async {
+    if (usernameController.text.isEmpty) {
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Username is required')),
+        );
+      });
+      return;
+    }
+    if (passwordController.text != confirmPasswordController.text) {
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Passwords do not match')),
+        );
+      });
+      return;
+    }
+
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) =>  LoginPage()),
+        );
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(e.message ?? "Registration failed. Try again.")),
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +69,6 @@ class SignupPage extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
           child: Form(
-            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -38,42 +87,54 @@ class SignupPage extends StatelessWidget {
                 ),
                 CustomFormField(
                   hintText: 'Name',
-                  controller: nameContorller,
+                  isPassword: false,
+                  controller: usernameController,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 CustomFormField(
                   hintText: 'Email',
-                  controller: emailContorller,
+                  isPassword: false,
+                  controller: emailController,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 CustomFormField(
                   hintText: 'Password',
-                  controller: passwordContorller,
+                  controller: passwordController,
                   isObsecure: true,
+                  isPassword: true,
+                    isPasswordVisible: isPasswordVisible,
+                    onTogglePasswordVisibility: () {
+                      setState(() {
+                        isPasswordVisible =
+                            !isPasswordVisible; 
+                      });
+                    },
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 CustomFormField(
-                  hintText: 'Confirm Password',
-                  controller: passwordContorller,
-                  isObsecure: true,
-                ),
+                    hintText: 'Confirm Password',
+                    controller: confirmPasswordController,
+                    isObsecure: true,
+                    isPassword: true,
+                    isPasswordVisible: isConfirmPasswordVisible,
+                    onTogglePasswordVisibility: () {
+                      setState(() {
+                        isConfirmPasswordVisible =
+                            !isConfirmPasswordVisible; 
+                      });
+                    }),
                 const SizedBox(
                   height: 60,
                 ),
                 CustomButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MainPage(),
-                      ),
-                    );
+                    registerUser();
                   },
                   text: 'Sign Up',
                 ),
