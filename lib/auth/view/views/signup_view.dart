@@ -39,8 +39,7 @@ class _SignupPageState extends State<SignupPage> {
     }
 
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -48,7 +47,7 @@ class _SignupPageState extends State<SignupPage> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  LoginPage()),
+          MaterialPageRoute(builder: (context) => LoginPage()),
         );
       });
     } on FirebaseAuthException catch (e) {
@@ -106,13 +105,12 @@ class _SignupPageState extends State<SignupPage> {
                   controller: passwordController,
                   isObsecure: true,
                   isPassword: true,
-                    isPasswordVisible: isPasswordVisible,
-                    onTogglePasswordVisibility: () {
-                      setState(() {
-                        isPasswordVisible =
-                            !isPasswordVisible; 
-                      });
-                    },
+                  isPasswordVisible: isPasswordVisible,
+                  onTogglePasswordVisibility: () {
+                    setState(() {
+                      isPasswordVisible = !isPasswordVisible;
+                    });
+                  },
                 ),
                 const SizedBox(
                   height: 15,
@@ -125,8 +123,7 @@ class _SignupPageState extends State<SignupPage> {
                     isPasswordVisible: isConfirmPasswordVisible,
                     onTogglePasswordVisibility: () {
                       setState(() {
-                        isConfirmPasswordVisible =
-                            !isConfirmPasswordVisible; 
+                        isConfirmPasswordVisible = !isConfirmPasswordVisible;
                       });
                     }),
                 const SizedBox(

@@ -15,7 +15,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-
+lib/const.dart
 lib/payment/services/api_keys.dart
 lib/firebase_options.dart
 # The .vscode folder contains launch configuration and tasks you configure in

@@ -1,13 +1,13 @@
-
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/const.dart';
 import 'package:ecommerce_app/models/product_model.dart';
 
 class GetCategoryService {
-  final Dio dio = Dio(); 
+  final Dio dio = Dio();
 
   Future<List<ProductModel>> GetCategory({required String categoryName}) async {
     try {
-      Response response = await dio.get('https://fakestoreapi.com/products/category/$categoryName');
+      Response response = await dio.get('$apiCategoey$categoryName');
       List<dynamic> data = response.data;
 
       List<ProductModel> productList = [];

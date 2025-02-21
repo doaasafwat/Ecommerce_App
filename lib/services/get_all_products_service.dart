@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/const.dart';
 import 'package:ecommerce_app/models/product_model.dart';
 
 class AllProductService {
@@ -7,7 +8,7 @@ class AllProductService {
 
   Future<List<ProductModel>> getAllProduct() async {
     try {
-      Response response = await dio.get('https://fakestoreapi.com/products');
+      Response response = await dio.get(apiAllProducts);
       List<dynamic> data = response.data;
 
       List<ProductModel> productList = [];

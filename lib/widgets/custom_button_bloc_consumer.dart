@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ecommerce_app/payment/cubit/payment_cubit.dart';
 import 'package:ecommerce_app/payment/cubit/payment_state.dart';
 import 'package:ecommerce_app/payment/models/amount_model/amount_model.dart';
@@ -87,15 +86,15 @@ class CustomButtonBlocCunsumer extends StatelessWidget {
                     transactions: transactions,
                     note: "Contact us for any questions on your order.",
                     onSuccess: (Map params) async {
-                      log("onSuccess: $params");
+                     
                       Navigator.pop(context);
                     },
                     onError: (error) {
-                      log("onError: $error");
+                    
                       Navigator.pop(context);
                     },
                     onCancel: () {
-                      print('cancelled:');
+                   
                       Navigator.pop(context);
                     },
                   ),

@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/auth/view/views/login_view.dart';
+import 'dart:io';
 import 'package:ecommerce_app/firebase_options.dart';
 import 'package:ecommerce_app/payment/services/api_keys.dart';
 import 'package:ecommerce_app/provider/cart_provider.dart';
@@ -9,14 +9,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
-WidgetsFlutterBinding.ensureInitialized();
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    if (Platform.isAndroid) {
+      return super.createHttpClient(context)
+        ..badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+    }
+
+    return super.createHttpClient(context)
+      ..findProxy = (uri) {
+        return "PROXY 192.168.1.7:8083";
+      }
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  HttpOverrides.global = MyHttpOverrides();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
   Stripe.publishableKey = ApiKeys.Publishablekey;
+
   runApp(
     MultiProvider(
       providers: [
@@ -33,7 +54,7 @@ class EcommerceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const  MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LogoView(),
     );
