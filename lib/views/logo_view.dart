@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/auth/view/views/login_view.dart';
-import 'package:ecommerce_app/views/main_page.dart';
 import 'package:flutter/material.dart';
 
 class LogoView extends StatefulWidget {
